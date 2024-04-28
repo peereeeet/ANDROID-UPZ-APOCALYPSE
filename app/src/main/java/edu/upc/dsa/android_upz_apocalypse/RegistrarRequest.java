@@ -1,7 +1,8 @@
 package edu.upc.dsa.android_upz_apocalypse;
 
-public class LoginRequest {
+public class RegistrarRequest {
     private String usuario;
+    private String email;
     private String contrasena;
 
     public String getUsuario() {
@@ -12,11 +13,19 @@ public class LoginRequest {
         this.usuario = usuario;
     }
 
-    public String getPassword() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContraseña() {
         return contrasena;
     }
 
-    public void setPassword(String contrasena) {
+    public void setContraseña(String contrasena) {
         this.contrasena = contrasena;
     }
 }
