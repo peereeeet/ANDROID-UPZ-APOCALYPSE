@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText editTextUser, editTextPassword;
     Button bt_login, bt_registrar;
-    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

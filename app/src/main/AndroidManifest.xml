@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ANDROIDUPZAPOCALYPSE"
         tools:targetApi="31">
         <activity
+            android:name=".DetailTiendaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TiendaActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false">
             <intent-filter>

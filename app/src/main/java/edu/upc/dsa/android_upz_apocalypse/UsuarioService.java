@@ -10,9 +10,10 @@ import retrofit2.http.Path;
 
 public interface UsuarioService {
 
-    @GET("users/{name}&{password}")
+    @GET("usuarios/{name}&{password}")
     Call<LoginResponse> loginUsers(@Path("name") String name, @Path("password") String password);
-
-    @POST("users/")
+    @POST("usuarios/")
     Call<RegistrarResponse> registrarUsers(@Body RegistrarRequest registerRequest);
+    @GET("tienda/objetos")
+    Call<List<Object>> getObjects();
 }
