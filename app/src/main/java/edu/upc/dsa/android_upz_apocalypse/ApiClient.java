@@ -12,7 +12,7 @@ public class ApiClient {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
 
-        String URL = "http://localhost:8080/dsaApp/";
+        String URL = "http://10.0.2.2:8080/dsaApp/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)

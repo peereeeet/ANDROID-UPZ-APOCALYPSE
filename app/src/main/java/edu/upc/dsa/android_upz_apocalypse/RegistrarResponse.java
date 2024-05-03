@@ -3,8 +3,8 @@ package edu.upc.dsa.android_upz_apocalypse;
 public class RegistrarResponse {
     private String id;
     private String email;
-    private String usuario;
-    private String contrasena;
+    private String name;
+    private String password;
 
     public String getId() {
         return id;
@@ -14,12 +14,12 @@ public class RegistrarResponse {
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getName() {
+        return name;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -30,11 +30,11 @@ public class RegistrarResponse {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contrasena;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -25,9 +25,9 @@ public class RegistrarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
 
-        editTextUsername  = findViewById(R.id.usuario);
+        editTextUsername  = findViewById(R.id.nameRegistrar);
         editTextEmail = findViewById(R.id.email);
-        editTextPassword = findViewById(R.id.contrasena);
+        editTextPassword = findViewById(R.id.passwordRegistrar);
         editTextPasswordRep = findViewById(R.id.contrasenaRep);
         bt_login2 = findViewById(R.id.bt_login2);
 
@@ -51,9 +51,9 @@ public class RegistrarActivity extends AppCompatActivity {
                 }
                 else {
                     RegistrarRequest registrarRequest = new RegistrarRequest();
-                    registrarRequest.setUsuario(editTextUsername.getText().toString());
+                    registrarRequest.setName(editTextUsername.getText().toString());
                     registrarRequest.setEmail(editTextEmail.getText().toString());
-                    registrarRequest.setContraseña(editTextPassword.getText().toString());
+                    registrarRequest.setPassword(editTextPassword.getText().toString());
                     registrarUser(registrarRequest);}
             }
         });
@@ -69,7 +69,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     String message = "Éxito";
                     Toast.makeText(RegistrarActivity.this,message,Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(RegistrarActivity.this,LoginActivity.class));
+                    startActivity(new Intent(RegistrarActivity.this,MainActivity.class));
                     finish();
                 } else {
                     String message = "Ha ocurrido un error";

@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.content.SharedPreferences;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -24,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        editTextUser = findViewById(R.id.nombre);
-        editTextPassword = findViewById(R.id.contrasena);
+        editTextUser = findViewById(R.id.nameLogin);
+        editTextPassword = findViewById(R.id.passwordLogin);
         bt_login = findViewById(R.id.bt_login);
         bt_registrar = findViewById(R.id.bt_registrar);
 
@@ -48,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegistrarActivity.class));
             }
         });
-
-
     }
 
     public void loginUser(String name, String password){
