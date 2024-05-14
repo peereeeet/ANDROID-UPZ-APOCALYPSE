@@ -6,14 +6,17 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UsuarioService {
 
-    @GET("game/usuarios/login")
-    Call<LoginResponse> loginUsers(@Path("name") String name, @Path("password") String password);
+    @POST("game/usuarios/login")
+    Call<UsuarioResponse> loginUser(@Body LoginRequest loginRequest);
     @POST("game/usuarios/register")
     Call<RegistrarResponse> registrarUsers(@Body RegistrarRequest registerRequest);
-    @GET("tienda/objetos")
+    @GET("gametienda/objetos")
     Call<List<Object>> getObjects();
+    @PUT("game/tienda/comprarObjeto/{mail}")
+    Call<Object> comprarObjeto(@Body Object object,@Path("name") String name);
 }

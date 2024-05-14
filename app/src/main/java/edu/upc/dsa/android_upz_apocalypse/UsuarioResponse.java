@@ -1,8 +1,8 @@
 package edu.upc.dsa.android_upz_apocalypse;
 
-public class LoginResponse {
+public class UsuarioResponse {
     private String id;
-    private String email;
+    private String mail;
     private String name;
     private String password;
     private int monedas;
@@ -24,11 +24,11 @@ public class LoginResponse {
     }
 
     public String getEmail() {
-        return email;
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String mail) {
+        this.mail = mail;
     }
 
     public String getPassword() {
@@ -39,4 +39,11 @@ public class LoginResponse {
         this.password = password;
     }
 
+    public int getMonedas() {
+        return monedas;
+    }
+
+    public void setMonedas(int monedas) {
+        this.monedas = monedas;
+    }
 }

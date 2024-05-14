@@ -5,14 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,10 +26,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TiendaActivity extends AppCompatActivity {
-
     RecyclerView lista;
-
     Button bt_back;
+    TextView monedas;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,10 @@ public class TiendaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tienda);
         lista = findViewById(R.id.lista);
         bt_back = findViewById(R.id.bt_back);
+        monedas = findViewById(R.id.monedas);
+
+        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        monedas.setText("Monedas : " + sharedPreferences.getInt("monedas",0));
 
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +58,7 @@ public class TiendaActivity extends AppCompatActivity {
             public void onResponse(Call<List<Object>> call, Response<List<Object>> response) {
                 if (response.isSuccessful()) {
                     List<Object> listaObjetos = response.body();
-                    recycleadapter adapter = new recycleadapter(listaObjetos);
+                    recycleadapter adapter = new recycleadapter(TiendaActivity.this,listaObjetos);
                     adapter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -76,7 +85,9 @@ public class TiendaActivity extends AppCompatActivity {
     class recycleadapter extends RecyclerView.Adapter<recycleadapter.MyViewHolder> implements View.OnClickListener{
         List<Object> list;
         private View.OnClickListener listener;
-        public recycleadapter(List<Object> list){
+        private Context contexto;
+        public recycleadapter(Context contexto, List<Object> list){
+            this.contexto = contexto;
             this.list = list;
         }
 
@@ -95,6 +106,11 @@ public class TiendaActivity extends AppCompatActivity {
             holder.nombre.setText("Nombre : " + list.get(position).getNombre());
             holder.valor.setText("Valor : " +String.valueOf(list.get(position).getValor()));
             holder.precio.setText("Precio : " + String.valueOf(list.get(position).getPrecio()));
+            Picasso.with(contexto)
+                    .load(list.get(position).getUrl())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .fit()
+                    .into(holder.image);
         }
 
         @Override
@@ -115,14 +131,15 @@ public class TiendaActivity extends AppCompatActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder{
             TextView id, nombre, precio, valor;
-
+            ImageView image;
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
-                id = itemView.findViewById(R.id.IdOb);
-                nombre = itemView.findViewById(R.id.NombreOb);
-                precio = itemView.findViewById(R.id.PrecioOb);
-                valor = itemView.findViewById(R.id.ValorOb);
+                id = itemView.findViewById(R.id.id);
+                nombre = itemView.findViewById(R.id.nombre);
+                precio = itemView.findViewById(R.id.precio);
+                valor = itemView.findViewById(R.id.valor);
+                image = itemView.findViewById(R.id.image);
             }
         }
-    }RecyclerView recycle;
+    }
 }

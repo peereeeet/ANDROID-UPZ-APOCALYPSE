@@ -5,12 +5,15 @@ public class Object {
     String nombre;
     int precio;
     int valor;
+    String url;
 
-    public Object(int id, String nombre, int precio, int valor) {
+
+    public Object(int id, String nombre, int precio, int valor, String url) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.valor=valor;
+        this.url=url;
     }
 
     public int getId() {
@@ -36,5 +39,11 @@ public class Object {
     }
     public void setValor(int valor) {
         this.valor = valor;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

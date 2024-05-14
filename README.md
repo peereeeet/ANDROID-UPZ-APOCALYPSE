@@ -17,3 +17,9 @@ Cuarto commit (Acabada Iteración 1):
 - Funciones de Login y Registrar perfectamente implementadas, con su respectiva llamada a la API CLIENT
 - Funcionalidad de la tienda 80% terminada, falta determinar las características de los objetos y su imagen respectiva
 
+Quinto commit:
+- Menú con pantalla de Splash Screen, Home, Login, Registrar, Main, Tienda y DetailTienda (para ver los detalles de los objetos)
+- Funciones de Login y Registrar perfectamente implementadas, con su respectiva llamada a la API CLIENT
+- Funcionalidad de la tienda 80% terminada, falta determinar las características de los objetos y su imagen respectiva
+- Símbolo de carga de servicios implementado
+
