@@ -23,3 +23,10 @@ Quinto commit:
 - Funcionalidad de la tienda 80% terminada, falta determinar las características de los objetos y su imagen respectiva
 - Símbolo de carga de servicios implementado
 
+Sexto commit:
+- Menú con pantalla de Splash Screen, Home, Login, Registrar, Main, Tienda, DetailTienda, Perfil y Actualizar Perfil
+- Funciones de Login y Registrar perfectamente implementadas, con su respectiva llamada a la API CLIENT
+- Funcionalidad de la tienda 80% terminada, falta determinar las características de los objetos y su imagen respectiva
+- Funcionalidad de Shared Preferences y Perfil al 70% falta para ambos cambiar el Backend
+- Símbolo de carga de servicios implementado
+

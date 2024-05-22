@@ -22,8 +22,13 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, HomeActivity.class);
-                startActivity(i);
+                if (sharedPreferences.contains("mail") && sharedPreferences.contains("password") && sharedPreferences.contains("name")){
+                    startActivity(new Intent(SplashScreen.this,MainActivity.class));
+                    finish();;
+                } else {
+                    startActivity(new Intent(SplashScreen.this,HomeActivity.class));
+                    finish();;
+                }
             }
         }, 3000);
 

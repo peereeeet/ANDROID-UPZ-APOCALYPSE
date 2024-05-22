@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     String message = "Éxito";
                     Toast.makeText(LoginActivity.this,message,Toast.LENGTH_LONG).show();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
+
                     editor.putString("email", loginRequest.getEmail());
                     editor.putString("password",loginRequest.getPassword());
                     editor.putString("name", response.body().getName());
