@@ -7,7 +7,6 @@ public class Object {
     int valor;
     String url;
 
-
     public Object(int id, String nombre, int precio, int valor, String url) {
         this.id = id;
         this.nombre = nombre;

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
 
         sharedPreferences = getSharedPreferences("user_info",MODE_PRIVATE);
-        username.setText(sharedPreferences.getString("username",null));
+        username.setText("Nombre: " + sharedPreferences.getString("name",null));
         bt_tienda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

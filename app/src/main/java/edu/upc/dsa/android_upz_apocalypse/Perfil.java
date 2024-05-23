@@ -37,9 +37,9 @@ public class Perfil extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
-        editName.setText("Nombre : " + sharedPreferences.getString("name", null));
-        editMail.setText("Mail : " + sharedPreferences.getString("mail", null));
-        editPassword.setText("Password : " + sharedPreferences.getString("password", null));
+        editName.setText("Nombre: " + sharedPreferences.getString("name", null));
+        editMail.setText("Mail: " + sharedPreferences.getString("email", null));
+        editPassword.setText("Password: " + sharedPreferences.getString("password", null));
 
         button_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class Perfil extends AppCompatActivity {
         builder.setMessage("¿Seguro que desea elminar esta cuenta? Todos sus datos serán eliminados.")
                 .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        eliminar(sharedPreferences.getString("mail",null),sharedPreferences.getString("password",null));
+                        eliminar(sharedPreferences.getString("email",null),sharedPreferences.getString("password",null));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -89,8 +89,8 @@ public class Perfil extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private void eliminar(String mail,String password) {
-        Call<Void> deleteResponseCall = ApiClient.getService().deleteUsers(mail, password);
+    private void eliminar(String email,String password) {
+        Call<Void> deleteResponseCall = ApiClient.getService().deleteUsers(email, password);
         deleteResponseCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

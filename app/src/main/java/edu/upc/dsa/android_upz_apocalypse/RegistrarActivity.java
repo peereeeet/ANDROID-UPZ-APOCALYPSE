@@ -73,7 +73,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     String message = "Éxito";
                     Toast.makeText(RegistrarActivity.this,message,Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(RegistrarActivity.this,MainActivity.class));
+                    startActivity(new Intent(RegistrarActivity.this,LoginActivity.class));
                     finish();
                 } else {
                     String message = "Ha ocurrido un error";
