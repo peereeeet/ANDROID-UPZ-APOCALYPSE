@@ -37,7 +37,7 @@ public class ActualizarPerfil extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
-        String mail = sharedPreferences.getString("mail", null);
+        String email = sharedPreferences.getString("email", null);
 
         button_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class ActualizarPerfil extends AppCompatActivity {
                     String newPassword = editTextPassword.getText().toString();
                     String newMail = editTextMail.getText().toString();
 
-                    updateUser(mail, newPassword, newName, newMail);
+                    updateUser(email, newPassword, newName, newMail);
                 } else {
                     Toast.makeText(ActualizarPerfil.this, "Algunos elementos de la vista son nulos", Toast.LENGTH_LONG).show();
                 }
@@ -64,8 +64,8 @@ public class ActualizarPerfil extends AppCompatActivity {
         });
     }
 
-    public void updateUser(String mail, String newPassword, String newName, String newMail){
-        Call<UsuarioResponse> updateResponseCall = ApiClient.getService().updateUsers(mail, newPassword, newName, newMail);
+    public void updateUser(String email, String newPassword, String newName, String newMail){
+        Call<UsuarioResponse> updateResponseCall = ApiClient.getService().updateUsers(email, newPassword, newName, newMail);
         updateResponseCall.enqueue(new Callback<UsuarioResponse>() {
             @Override
             public void onResponse(Call<UsuarioResponse> call, Response<UsuarioResponse> response) {
@@ -76,7 +76,7 @@ public class ActualizarPerfil extends AppCompatActivity {
 
                     // Verificar y actualizar el correo electrónico si no está vacío
                     if (!TextUtils.isEmpty(response.body().getEmail())) {
-                        editor.putString("mail", response.body().getEmail());
+                        editor.putString("email", response.body().getEmail());
                     }
 
                     // Verificar y actualizar la contraseña si no está vacía
