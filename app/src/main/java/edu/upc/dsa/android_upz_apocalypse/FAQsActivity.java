@@ -13,7 +13,6 @@ import android.widget.Button;
 public class FAQsActivity extends AppCompatActivity {
 
     Button bt_backFAQs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

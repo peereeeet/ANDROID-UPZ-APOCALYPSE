@@ -1,23 +1,22 @@
 package edu.upc.dsa.android_upz_apocalypse;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 import android.content.SharedPreferences;
 import com.squareup.picasso.Picasso;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -25,68 +24,57 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TiendaActivity extends AppCompatActivity {
-    RecyclerView lista;
-    Button bt_back;
-    TextView monedas;
+public class InventarioActivity extends AppCompatActivity {
+    RecyclerView recycle;
+    TextView titulo;
     SharedPreferences sharedPreferences;
+    Button bt_volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tienda);
-        lista = findViewById(R.id.lista);
-        bt_back = findViewById(R.id.bt_back);
-        monedas = findViewById(R.id.monedas);
+        setContentView(R.layout.activity_inventario);
+        recycle = findViewById(R.id.recycle);
+        titulo = findViewById(R.id.titulo);
+        bt_volver = findViewById(R.id.bt_volverInventario);
 
-        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
-        monedas.setText("Monedas : " + sharedPreferences.getInt("price",0));
-
-        bt_back.setOnClickListener(new View.OnClickListener() {
+        bt_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TiendaActivity.this,MainActivity.class));
+                startActivity(new Intent(InventarioActivity.this,MainActivity.class));
             }
         });
 
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
-        lista.setLayoutManager(llm);
+        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
+        titulo.setText("Inventario de " + sharedPreferences.getString("name",null));
 
-        Call<List<Object>> objectlistcall = ApiClient.getService().getObjects();
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        recycle.setLayoutManager(llm);
+
+        Call<List<Object>> objectlistcall = ApiClient.getService().getUserObjects(email);
         objectlistcall.enqueue(new Callback<List<Object>>() {
             @Override
             public void onResponse(Call<List<Object>> call, Response<List<Object>> response) {
                 if (response.isSuccessful()) {
-                    List<Object> listaObjetos = response.body();
-                    recycleadapter adapter = new recycleadapter(TiendaActivity.this,listaObjetos);
-                    adapter.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(getApplicationContext(), listaObjetos.get(lista.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(TiendaActivity.this, DetailTiendaActivity.class);
-                            intent.putExtra("Id: ", listaObjetos.get(lista.getChildAdapterPosition(view)).getId());
-                            intent.putExtra("Nombre: ", listaObjetos.get(lista.getChildAdapterPosition(view)).getNombre());
-                            intent.putExtra("Precio:", String.valueOf(listaObjetos.get(lista.getChildAdapterPosition(view)).getPrecio()));
-                            intent.putExtra("Descripción: ", listaObjetos.get(lista.getChildAdapterPosition(view)).getDescripcion());
-                            intent.putExtra("Url: ", listaObjetos.get(lista.getChildAdapterPosition(view)).getUrl());
-                            startActivity(intent);
-                        }
-                    });
-                    lista.setAdapter(adapter);
+                    List<Object> objectList = response.body();
+                    recycleadapter adapter = new recycleadapter(InventarioActivity.this,objectList);
+                    recycle.setAdapter(adapter);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Object>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
+    }
 
     class recycleadapter extends RecyclerView.Adapter<recycleadapter.MyViewHolder> implements View.OnClickListener{
         List<Object> list;
-        private View.OnClickListener listener;
         private Context contexto;
+        private View.OnClickListener listener;
         public recycleadapter(Context contexto, List<Object> list){
             this.contexto = contexto;
             this.list = list;
@@ -96,7 +84,7 @@ public class TiendaActivity extends AppCompatActivity {
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout,null);
-            MyViewHolder viewHolder = new MyViewHolder(view);
+            recycleadapter.MyViewHolder viewHolder = new recycleadapter.MyViewHolder(view);
             view.setOnClickListener(this);
             return viewHolder;
         }
@@ -105,8 +93,8 @@ public class TiendaActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             holder.id.setText("Id: " + list.get(position).getId());
             holder.nombre.setText("Nombre: " + list.get(position).getNombre());
-            holder.descripcion.setText("Descripción: " + (list.get(position).getDescripcion()));
-            holder.precio.setText("Precio: " + (list.get(position).getPrecio()));
+            holder.descripcion.setText("Descripción: " + list.get(position).getDescripcion());
+            holder.precio.setText("Precio: " + list.get(position).getPrecio());
             Picasso.with(contexto)
                     .load(list.get(position).getUrl())
                     .placeholder(R.drawable.ic_launcher_background)
@@ -131,7 +119,7 @@ public class TiendaActivity extends AppCompatActivity {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder{
-            TextView id, nombre, precio, descripcion;
+            TextView id, nombre, descripcion, precio;
             ImageView image;
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);

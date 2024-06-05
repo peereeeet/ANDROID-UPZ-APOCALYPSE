@@ -4,14 +4,14 @@ public class Object {
     int id;
     String nombre;
     int precio;
-    int valor;
+    int descripcion;
     String url;
 
-    public Object(int id, String nombre, int precio, int valor, String url) {
+    public Object(int id, String nombre, int precio, int descripcion, String url) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
-        this.valor=valor;
+        this.descripcion=descripcion;
         this.url=url;
     }
 
@@ -33,11 +33,11 @@ public class Object {
     public void setPrecio(int precio) {
         this.precio = precio;
     }
-    public int getValor() {
-        return valor;
+    public int getDescripcion() {
+        return descripcion;
     }
-    public void setValor(int valor) {
-        this.valor = valor;
+    public void setDescripcion(int descripcion) {
+        this.descripcion = descripcion;
     }
     public String getUrl() {
         return url;

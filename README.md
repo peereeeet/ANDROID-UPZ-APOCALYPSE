@@ -45,5 +45,17 @@ Octavo commit:
 - Funcionalidad de la tienda 80% terminada, falta determinar las características de los objetos y su imagen respectiva
 - Funcionalidad de Shared Preferences completada
 - Perfil acabado, falta terminar función de Eliminar.
-- Míinimo 2 --> Denuncia hecha, FAQs hecha y Consulta hecha. 
+- Mínimo 2 --> Denuncia hecha, FAQs hecha y Consulta hecha. 
+- Símbolo de carga de servicios implementado
+
+Noveno commit:
+- Menú con pantalla de Splash Screen, Home, Login, Registrar, Main, Tienda, DetailTienda, Perfil, Actualizar Perfil,
+  Consulta, FAQs, Inventario y Denuncia.
+- Funciones de Login y Registrar perfectamente implementadas, con su respectiva llamada a la API CLIENT
+- Funcionalidad de la tienda 80% terminada, falta determinar las características de los objetos y su imagen respectiva
+- Funcionalidad del inventario 80% terminada, falta determinar las características de los objetos y su imagen respectiva
+- Funcionalidad de Shared Preferences completada
+- Perfil acabado, falta terminar función de Eliminar.
+- Mínimo 2 --> Denuncia hecha, FAQs hecha y Consulta hecha. 
+- Preparado botón para Iniciar la partida en Main con su respectiva llamada al Mapa de Unity.
 - Símbolo de carga de servicios implementado
