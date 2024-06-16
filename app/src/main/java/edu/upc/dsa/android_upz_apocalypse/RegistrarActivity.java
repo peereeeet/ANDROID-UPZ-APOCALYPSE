@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ProgressBar;
+import java.io.IOException;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,7 +79,7 @@ public class RegistrarActivity extends AppCompatActivity {
                     startActivity(new Intent(RegistrarActivity.this,LoginActivity.class));
                     finish();
                 } else {
-                    String message = "Ha ocurrido un error";
+                    String message = "El email ya está registrado";
                     Toast.makeText(RegistrarActivity.this,message,Toast.LENGTH_LONG).show();
                     spinner.setVisibility(View.GONE);
                 }
@@ -84,10 +87,12 @@ public class RegistrarActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegistrarResponse> call, Throwable t) {
-                String message = t.getLocalizedMessage();
-                Toast.makeText(RegistrarActivity.this,message,Toast.LENGTH_LONG).show();
+                Toast.makeText(RegistrarActivity.this,"Compra realizada correctamente",Toast.LENGTH_LONG).show();
                 spinner.setVisibility(View.GONE);
             }
         });
     }
+
+
+
 }

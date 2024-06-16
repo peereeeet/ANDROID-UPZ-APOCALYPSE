@@ -59,3 +59,6 @@ Noveno commit:
 - Mínimo 2 --> Denuncia hecha, FAQs hecha y Consulta hecha. 
 - Preparado botón para Iniciar la partida en Main con su respectiva llamada al Mapa de Unity.
 - Símbolo de carga de servicios implementado
+
+Decimo commit:
+Tienda ok, Inventario loading.

@@ -41,4 +41,5 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.8.1")
     implementation ("com.squareup.picasso:picasso:2.5.2")
 
+
 }

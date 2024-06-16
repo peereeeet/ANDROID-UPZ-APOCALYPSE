@@ -43,7 +43,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailTiendaActivity"
+            android:name=".RecyclerClickViewListener"
+            android:exported="false" />
+        <activity
+            android:name=".RecyclerViewAdapterInventory"
+            android:exported="false" />
+        <activity
+            android:name=".RecyclerViewAdapterItems"
             android:exported="false" />
         <activity
             android:name=".TiendaActivity"

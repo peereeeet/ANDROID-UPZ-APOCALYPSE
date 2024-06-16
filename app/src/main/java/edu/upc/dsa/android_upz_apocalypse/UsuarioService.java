@@ -20,15 +20,15 @@ public interface UsuarioService {
     @PUT("game/usuarios/actualizar/{email}/{newPassword}/{newName}/{newMail}")
     Call<UsuarioResponse> updateUsers(@Path("email") String mail, @Path("newPassword") String newPassword, @Path("newName") String newName, @Path("newMail") String newMail);
     @GET("game/tienda/objetos")
-    Call<List<Object>> getObjects();
-    @PUT("game/tienda/comprarObjeto/{email}")
-    Call<Object> comprarObjeto(@Body Object object,@Path("email") String email);
+    Call<List<Item>> getObjects();
+    @PUT("game/tienda/comprarObjeto/{email}/{idItem}")
+    Call<Integer> comprarObjeto(@Path("email") String email, @Path("idItem") int idItem);
     @PUT("game/denuncia/addDenuncia")
     Call<Void> addDenuncia(@Body Denuncia denuncia);
     @POST("game/question/addConsulta")
     Call<Void> realizarConsulta(@Body Question consulta);
-    @GET("game/usuarios/inventario/{email}")
-    Call<List<Object>> getUserObjects(@Path("email") String email);
+    @GET("game/inventory/{email}")
+    Call<List<Item>> getInventory(@Path("email") String email);
     @GET("usuarios/mapa/{idMapa}")
     Call<MapaResponse> getMapa(@Path("idMapa")int idMapa);
 

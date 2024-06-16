@@ -1,11 +1,12 @@
 package edu.upc.dsa.android_upz_apocalypse;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.content.SharedPreferences;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     String data;
     boolean respuesta = false;
     TextView username;
+    public String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,45 +37,59 @@ public class MainActivity extends AppCompatActivity {
         bt_inventario = findViewById(R.id.bt_inventario);
         bt_jugar = findViewById(R.id.bt_jugar);
         username = findViewById(R.id.username);
+        this.getEmail();
 
-        sharedPreferences = getSharedPreferences("user_info",MODE_PRIVATE);
-        username.setText("Nombre: " + sharedPreferences.getString("name",null));
+        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        username.setText("Nombre: " + sharedPreferences.getString("name", null));
+
         bt_tienda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,TiendaActivity.class));
+                saveEmail(email);
+                Intent intent = new Intent(MainActivity.this, TiendaActivity.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
             }
         });
+
         bt_perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, Perfil.class));
             }
         });
+
         bt_denuncia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DenunciaActivity.class));
             }
         });
+
         bt_faqs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, FAQsActivity.class));
             }
         });
+
         bt_consulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, QuestionActivity.class));
             }
         });
+
         bt_inventario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, InventarioActivity.class));
+                saveEmail(email);
+                Intent intent = new Intent(MainActivity.this, InventarioActivity.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
             }
         });
+
         bt_jugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +108,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getEmail() {
+        SharedPreferences sharedPreferences = getSharedPreferences("email", Context.MODE_PRIVATE);
+        this.email = sharedPreferences.getString("email", null);
+    }
+
+    public void saveEmail(String email) {
+        SharedPreferences sharedPreferences = getSharedPreferences("email", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", email);
+        editor.apply();
+
+        if (email != null) {
+            Log.i("SAVING", email);
+        } else {
+            Log.i("SAVING", "email is null");
+        }
+    }
+
     public void getMapa(int idMapa) {
         Call<MapaResponse> mapaResponseCall = ApiClient.getService().getMapa(idMapa);
         mapaResponseCall.enqueue(new Callback<MapaResponse>() {
@@ -106,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void onFailure(Call<MapaResponse> call, Throwable t) {
                 String message = t.getLocalizedMessage();

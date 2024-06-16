@@ -2,10 +2,10 @@ package edu.upc.dsa.android_upz_apocalypse;
 
 public class UsuarioResponse {
     private String id;
-    private String mail;
+    private String email;
     private String name;
     private String password;
-    private int monedas;
+    private int money;
 
     public String getId() {
         return id;
@@ -24,11 +24,11 @@ public class UsuarioResponse {
     }
 
     public String getEmail() {
-        return mail;
+        return email;
     }
 
     public void setEmail(String mail) {
-        this.mail = mail;
+        this.email = mail;
     }
 
     public String getPassword() {
@@ -39,11 +39,11 @@ public class UsuarioResponse {
         this.password = password;
     }
 
-    public int getMonedas() {
-        return monedas;
+    public int getMoney() {
+        return money;
     }
 
-    public void setMonedas(int monedas) {
-        this.monedas = monedas;
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

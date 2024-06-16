@@ -5,6 +5,7 @@ public class RegistrarResponse {
     private String email;
     private String name;
     private String password;
+    private int money;
 
     public String getId() {
         return id;
@@ -36,5 +37,13 @@ public class RegistrarResponse {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }
