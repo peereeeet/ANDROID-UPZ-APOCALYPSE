@@ -60,5 +60,5 @@ Noveno commit:
 - Preparado botón para Iniciar la partida en Main con su respectiva llamada al Mapa de Unity.
 - Símbolo de carga de servicios implementado
 
-Decimo commit:
-Tienda ok, Inventario loading.
+Decimo commit: 
+- Tienda compra ok, inventario y cancelar compra ok

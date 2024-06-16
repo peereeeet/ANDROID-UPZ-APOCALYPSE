@@ -29,6 +29,8 @@ public interface UsuarioService {
     Call<Void> realizarConsulta(@Body Question consulta);
     @GET("game/inventory/{email}")
     Call<List<Item>> getInventory(@Path("email") String email);
+    @PUT("game/tienda/cancelarCompra/{email}/{idItem}")
+    Call<Integer> cancelarCompra(@Path("email") String email, @Path("idItem") int idItem);
     @GET("usuarios/mapa/{idMapa}")
     Call<MapaResponse> getMapa(@Path("idMapa")int idMapa);
 

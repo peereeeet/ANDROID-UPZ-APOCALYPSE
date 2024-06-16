@@ -57,7 +57,7 @@ public class TiendaActivity extends AppCompatActivity implements RecyclerClickVi
     }
 
     public void returnFunction(View view) {
-        Intent intent = new Intent(TiendaActivity.this, LoginActivity.class);
+        Intent intent = new Intent(TiendaActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -98,7 +98,7 @@ public class TiendaActivity extends AppCompatActivity implements RecyclerClickVi
                         Toast.makeText(TiendaActivity.this,"Insufficient money!", Toast.LENGTH_SHORT).show();
                         break;
                     case 409:
-                        Toast.makeText(TiendaActivity.this,"Item already purchased", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TiendaActivity.this,"Objeto ya en el inventario", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         Toast.makeText(TiendaActivity.this,"Unexpected error", Toast.LENGTH_SHORT).show();

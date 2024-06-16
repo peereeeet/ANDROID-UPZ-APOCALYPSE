@@ -3,6 +3,7 @@ package edu.upc.dsa.android_upz_apocalypse;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,46 +11,77 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecyclerViewAdapterInventory extends RecyclerView.Adapter<RecyclerViewAdapterInventory.ViewHolder>{
-    private static RecyclerClickViewListener listener;
-    public List<Item> inventory;
+public class RecyclerViewAdapterInventory extends RecyclerView.Adapter<RecyclerViewAdapterInventory.ViewHolder> {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private List<Item> itemList;
+    private RecyclerClickViewListener listener;
 
-        public TextView ID;
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ID =(TextView)itemView.findViewById(R.id.ID);
-            itemView.setOnClickListener(this);
-        }
-        @Override
-        public void onClick(View view){
-            listener.recyclerViewListClicked(this.getLayoutPosition());
-        }
-    }
-
-    public RecyclerViewAdapterInventory(List<Item> inventory, RecyclerClickViewListener listener) {
-        this.inventory = inventory;
-        this.listener =listener;
+    public RecyclerViewAdapterInventory(List<Item> itemList, RecyclerClickViewListener listener) {
+        this.itemList = itemList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public RecyclerViewAdapterInventory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_inventory,parent,false);
-        RecyclerViewAdapterInventory.ViewHolder viewHolder= new RecyclerViewAdapterInventory.ViewHolder(view);
-        return viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapterInventory.ViewHolder holder, int position) {
-        holder.ID.setText(inventory.get(position).getID());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Item item = itemList.get(position);
+
+        holder.idItem.setText(String.valueOf(item.getID()));
+        holder.name.setText(item.getName());
+        holder.price.setText(String.valueOf(item.getPrice()));
+        holder.description.setText(item.getDescription());
+        if (item.getID() == 1) {
+            holder.itemImage.setImageResource(R.drawable.item0);
+        } else if (item.getID() == 2) {
+            holder.itemImage.setImageResource(R.drawable.item1);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.recyclerViewListClicked(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return inventory.size();
+        return itemList.size();
     }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView idItem;
+        public TextView name;
+        public TextView price;
+        public TextView description;
+        public ImageView itemImage;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            idItem = itemView.findViewById(R.id.idItem);
+            name = itemView.findViewById(R.id.name);
+            price = itemView.findViewById(R.id.price);
+            description = itemView.findViewById(R.id.description);
+            itemImage = itemView.findViewById(R.id.itemImage);
+        }
+    }
+
+    public Item getItem(int position) {
+        if (position >= 0 && position < itemList.size()) {
+            return itemList.get(position);
+        }
+        return null;
+    }
+
 }
+
+
+

@@ -58,7 +58,6 @@ public class RecyclerViewAdapterItems extends RecyclerView.Adapter<RecyclerViewA
         holder.description.setText(item.getDescription());
         holder.price.setText(String.valueOf(item.getPrice()));
 
-        // Usar diferentes imágenes basadas en el ID del ítem, o cualquier otra lógica
         if (item.getID() == 1) {
             holder.image.setImageResource(R.drawable.item0);
         } else if (item.getID() == 2) {

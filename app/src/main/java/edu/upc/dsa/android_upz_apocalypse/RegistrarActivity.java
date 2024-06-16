@@ -87,7 +87,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegistrarResponse> call, Throwable t) {
-                Toast.makeText(RegistrarActivity.this,"Compra realizada correctamente",Toast.LENGTH_LONG).show();
+                Toast.makeText(RegistrarActivity.this,"Registrado correctamente",Toast.LENGTH_LONG).show();
                 spinner.setVisibility(View.GONE);
             }
         });
