@@ -27,6 +27,8 @@ public interface UsuarioService {
     Call<Void> addDenuncia(@Body Denuncia denuncia);
     @POST("game/question/addConsulta")
     Call<Void> realizarConsulta(@Body Question consulta);
+    @GET("game/FAQs")
+    Call<List<FAQ>> obtenerPreguntasFrequentes ();
     @GET("game/inventory/{email}")
     Call<List<Item>> getInventory(@Path("email") String email);
     @PUT("game/tienda/cancelarCompra/{email}/{idItem}")

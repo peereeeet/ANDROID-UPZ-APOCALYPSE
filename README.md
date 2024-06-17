@@ -62,3 +62,6 @@ Noveno commit:
 
 Decimo commit: 
 - Tienda compra ok, inventario y cancelar compra ok
+
+Undecimo commit: 
+- FAQs se va perfecto, comunica perfecto con backend

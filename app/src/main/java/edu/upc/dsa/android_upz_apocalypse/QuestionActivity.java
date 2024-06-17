@@ -1,6 +1,6 @@
 package edu.upc.dsa.android_upz_apocalypse;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,25 +10,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-public class QuestionActivity extends AppCompatActivity{
+
+public class QuestionActivity extends AppCompatActivity {
     TextView dateVal;
     TextView messageVal;
     TextView titleVal;
     TextView senderVal;
     Button entregaButton, bt_back;
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        dateVal = findViewById(R.id.date);
-        messageVal = findViewById(R.id.message);
-        titleVal = findViewById(R.id.title);
-        senderVal = findViewById(R.id.remitente);
+
+        dateVal = findViewById(R.id.dateVal);
+        messageVal = findViewById(R.id.messageVal);
+        titleVal = findViewById(R.id.titleVal);
+        senderVal = findViewById(R.id.senderVal);
         entregaButton = findViewById(R.id.entregaButton);
         bt_back = findViewById(R.id.bt_backConsulta);
 
@@ -37,22 +39,32 @@ public class QuestionActivity extends AppCompatActivity{
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(QuestionActivity.this,MainActivity.class));
+                startActivity(new Intent(QuestionActivity.this, MainActivity.class));
             }
         });
 
         entregaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(dateVal.getText().toString()) || TextUtils.isEmpty(messageVal.getText().toString()) || TextUtils.isEmpty(titleVal.getText().toString())|| TextUtils.isEmpty(senderVal.getText().toString())) {
-                    String message = "Rellene todos los campos";
-                    Toast.makeText(QuestionActivity.this, message, Toast.LENGTH_LONG).show();
+                String date = dateVal.getText().toString();
+                String message = messageVal.getText().toString();
+                String title = titleVal.getText().toString();
+                String sender = senderVal.getText().toString();
+
+                Log.d("QuestionActivity", "Date: " + date);
+                Log.d("QuestionActivity", "Message: " + message);
+                Log.d("QuestionActivity", "Title: " + title);
+                Log.d("QuestionActivity", "Sender: " + sender);
+
+                if (TextUtils.isEmpty(date) || TextUtils.isEmpty(message) || TextUtils.isEmpty(title) || TextUtils.isEmpty(sender)) {
+                    String msg = "Rellene todos los campos";
+                    Toast.makeText(QuestionActivity.this, msg, Toast.LENGTH_LONG).show();
                 } else {
                     Question consulta = new Question();
-                    consulta.setDate(dateVal.getText().toString());
-                    consulta.setMessage(messageVal.getText().toString());
-                    consulta.setTitle(titleVal.getText().toString());
-                    consulta.setSender(senderVal.getText().toString());
+                    consulta.setDate(date);
+                    consulta.setMessage(message);
+                    consulta.setTitle(title);
+                    consulta.setSender(sender);
                     realizarConsulta(consulta);
                 }
             }
@@ -67,14 +79,13 @@ public class QuestionActivity extends AppCompatActivity{
                 if (response.isSuccessful()) {
                     String message = "Éxito";
                     Toast.makeText(QuestionActivity.this, message, Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(), QuestionActivity.class));
                     startActivity(new Intent(QuestionActivity.this, MainActivity.class));
-
                 } else {
                     String message = "Ha ocurrido un error";
                     Toast.makeText(QuestionActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.i("NO", "onFailure", t);
