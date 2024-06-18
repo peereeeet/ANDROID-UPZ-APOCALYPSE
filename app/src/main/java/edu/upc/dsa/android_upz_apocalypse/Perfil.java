@@ -1,5 +1,6 @@
 package edu.upc.dsa.android_upz_apocalypse;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -37,9 +38,7 @@ public class Perfil extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
-        editName.setText("Nombre: " + sharedPreferences.getString("name", null));
-        editMail.setText("Mail: " + sharedPreferences.getString("email", null));
-        editPassword.setText("Password: " + sharedPreferences.getString("password", null));
+        updateProfileData();
 
         button_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,57 +61,31 @@ public class Perfil extends AppCompatActivity {
         button_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Perfil.this, ActualizarPerfil.class));
-                finish();
+                Intent intent = new Intent(Perfil.this, ActualizarPerfil.class);
+                startActivityForResult(intent, 1);
             }
         });
 
         button_borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showConfirmationDialog(view);
+                Intent intent = new Intent(Perfil.this, EliminarActivity.class);
+                startActivityForResult(intent, 2);
             }
         });
     }
-    public void showConfirmationDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("¿Seguro que desea elminar esta cuenta? Todos sus datos serán eliminados.")
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        eliminar(sharedPreferences.getString("email",null),sharedPreferences.getString("password",null));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            updateProfileData();
+        }
     }
-    private void eliminar(String email,String password) {
-        Call<Void> deleteResponseCall = ApiClient.getService().deleteUsers(email, password);
-        deleteResponseCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    String message = "Éxito";
-                    Toast.makeText(Perfil.this, message, Toast.LENGTH_LONG).show();
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.clear();
-                    editor.commit();
-                    startActivity(new Intent(Perfil.this,HomeActivity.class));
-                    finish();
-                } else {
-                    String message = "Ha ocurrido un error";
-                    Toast.makeText(Perfil.this, message, Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                String message = "Error: " + t.getMessage();
-                Log.e("Borrar usuario", message);
-                Toast.makeText(Perfil.this, message, Toast.LENGTH_LONG).show();
-            }
-        });
+
+    private void updateProfileData() {
+        editName.setText("Nombre: " + sharedPreferences.getString("name", ""));
+        editMail.setText("Mail: " + sharedPreferences.getString("email", ""));
+        editPassword.setText("Password: " + sharedPreferences.getString("password", ""));
     }
 }

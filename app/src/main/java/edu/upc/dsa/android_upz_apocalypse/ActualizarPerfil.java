@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class ActualizarPerfil extends AppCompatActivity {
 
-    TextInputEditText editTextName, editTextPassword, editTextMail;
+    TextInputEditText editTextName, editTextPassword;
     Button button_save, button_volver;
     SharedPreferences sharedPreferences;
 
@@ -31,7 +31,6 @@ public class ActualizarPerfil extends AppCompatActivity {
 
         editTextName = findViewById(R.id.nameActualizar);
         editTextPassword = findViewById(R.id.passwordActualizar);
-        editTextMail = findViewById(R.id.mailActualizar);
         button_save = findViewById(R.id.btn_save);
         button_volver = findViewById(R.id.btn_volverActualizar);
 
@@ -42,21 +41,20 @@ public class ActualizarPerfil extends AppCompatActivity {
         button_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActualizarPerfil.this, Perfil.class));
+                setResult(RESULT_OK);
+                finish();
             }
         });
 
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(editTextName.getText()) &&
-                        !TextUtils.isEmpty(editTextPassword.getText()) &&
-                        !TextUtils.isEmpty(editTextMail.getText())) {
+                if (!TextUtils.isEmpty(editTextName.getText()) &&
+                        !TextUtils.isEmpty(editTextPassword.getText())) {
                     String newName = editTextName.getText().toString();
                     String newPassword = editTextPassword.getText().toString();
-                    String newMail = editTextMail.getText().toString();
 
-                    updateUser(email, newPassword, newName, newMail);
+                    updateUser(email, newName, newPassword);
                 } else {
                     Toast.makeText(ActualizarPerfil.this, "Algunos elementos de la vista son nulos", Toast.LENGTH_LONG).show();
                 }
@@ -64,44 +62,33 @@ public class ActualizarPerfil extends AppCompatActivity {
         });
     }
 
-    public void updateUser(String email, String newPassword, String newName, String newMail){
-        Call<UsuarioResponse> updateResponseCall = ApiClient.getService().updateUsers(email, newPassword, newName, newMail);
-        updateResponseCall.enqueue(new Callback<UsuarioResponse>() {
+    public void updateUser(String email, String newName, String newPassword) {
+        Call<Void> updateResponseCall = ApiClient.getService().updateUsers(email, newName, newPassword);
+        updateResponseCall.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<UsuarioResponse> call, Response<UsuarioResponse> response) {
-                if (response.isSuccessful()){
-                    String message = "Éxito";
-                    Toast.makeText(ActualizarPerfil.this,message,Toast.LENGTH_LONG).show();
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    // Verificar y actualizar el correo electrónico si no está vacío
-                    if (!TextUtils.isEmpty(response.body().getEmail())) {
-                        editor.putString("email", response.body().getEmail());
-                    }
-
-                    // Verificar y actualizar la contraseña si no está vacía
-                    if (!TextUtils.isEmpty(response.body().getPassword())) {
-                        editor.putString("password", response.body().getPassword());
-                    }
-
-                    // Verificar y actualizar el nombre si no está vacío
-                    if (!TextUtils.isEmpty(response.body().getName())) {
-                        editor.putString("name", response.body().getName());
-                    }
-
-                    editor.apply();
-
-                    startActivity(new Intent(ActualizarPerfil.this, Perfil.class));
-                    finish();
-                } else {
-                    String message = "Ha ocurrido un error";
-                    Toast.makeText(ActualizarPerfil.this,message,Toast.LENGTH_LONG).show();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                switch (response.code()) {
+                    case 201:
+                        String msg = "Éxito";
+                        Toast.makeText(ActualizarPerfil.this, msg, Toast.LENGTH_LONG).show();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("name", newName);
+                        editor.putString("password", newPassword);
+                        editor.apply();
+                        setResult(RESULT_OK);
+                        finish();
+                        break;
+                    case 404:
+                        Toast.makeText(ActualizarPerfil.this, "Usuario no encontrado", Toast.LENGTH_LONG).show();
+                        break;
                 }
+
             }
+
             @Override
-            public void onFailure(Call<UsuarioResponse> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 String message = t.getLocalizedMessage();
-                Toast.makeText(ActualizarPerfil.this,message,Toast.LENGTH_LONG).show();
+                Toast.makeText(ActualizarPerfil.this, message, Toast.LENGTH_LONG).show();
             }
         });
     }

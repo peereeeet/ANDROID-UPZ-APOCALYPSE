@@ -31,6 +31,9 @@
             android:name=".ActualizarPerfil"
             android:exported="false" />
         <activity
+            android:name=".EliminarActivity"
+            android:exported="false" />
+        <activity
             android:name=".Perfil"
             android:exported="false" />
         <activity

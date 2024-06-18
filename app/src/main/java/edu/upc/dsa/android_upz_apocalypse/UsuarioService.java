@@ -15,10 +15,10 @@ public interface UsuarioService {
     Call<UsuarioResponse> loginUser(@Body LoginRequest loginRequest);
     @POST("game/usuarios/register")
     Call<RegistrarResponse> registrarUsers(@Body RegistrarRequest registerRequest);
-    @DELETE("game/usuarios/delete/{email}/{password}")
-    Call<Void> deleteUsers(@Path("email") String mail, @Path("password") String password);
-    @PUT("game/usuarios/actualizar/{email}/{newPassword}/{newName}/{newMail}")
-    Call<UsuarioResponse> updateUsers(@Path("email") String mail, @Path("newPassword") String newPassword, @Path("newName") String newName, @Path("newMail") String newMail);
+    @POST("game/usuarios/delete")
+    Call<Void> deleteUsers(@Body Eliminar eliminar);
+    @PUT("game/usuarios/actualizar/{email}/{name}/{password}")
+    Call<Void> updateUsers(@Path("email") String email, @Path("name") String newName, @Path("password") String newPassword);
     @GET("game/tienda/objetos")
     Call<List<Item>> getObjects();
     @PUT("game/tienda/comprarObjeto/{email}/{idItem}")

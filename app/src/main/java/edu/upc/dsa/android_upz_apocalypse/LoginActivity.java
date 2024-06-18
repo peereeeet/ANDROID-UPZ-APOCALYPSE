@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     saveEmail(loginRequest.getEmail());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else {
-                    String message = "Ha ocurrido un error";
+                    String message = "No estás registrado con esas credenciales";
                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
                     spinner.setVisibility(View.GONE);
                 }
